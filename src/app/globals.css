@@ -2,32 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.single_family{
+    background-color: #6bb15d;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.land{
+    background-color: #d1486b;
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.mobile{
+    background-color: #884098;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.condos,.condo{
+    background-color: #4483ff;
+}
+.townhomes,.townhouse,.condo_townhome,.condo_townhome_rowhome_coop{
+    background-color: #0055ff;   
+}
+.farm{
+    background-color: orange;
+}
+.other{
+    background-color: gray;
 }
