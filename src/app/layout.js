@@ -1,5 +1,7 @@
 import "./globals.css";
-
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
 
 export const metadata = {
   title: "Create Next App",
@@ -9,8 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="m-5 p-5">
-        <h1 className="text-2xl">This is the layout.</h1>
+      <body className="m-5 p-5 bg-neutral-200">
         {children}
         
       </body>

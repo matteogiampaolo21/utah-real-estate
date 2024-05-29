@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="m-5 p-5 border-black border" >
+    <div className="shadow bg-white rounded-t rounded-b p-5" >
       <h2 className="text-xl mb-3 font-bold">Homepage</h2>
-      <Link className="hover:bg-blue-500 hover:text-white border-black border px-2 " href="/property">Property</Link>
+      <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/property">Property</Link>
     </div>
   );
 }
