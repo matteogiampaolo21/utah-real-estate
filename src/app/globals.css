@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.hide{
+    display: none;
+}
+
+
 .single_family{
     background-color: #6bb15d;
 }

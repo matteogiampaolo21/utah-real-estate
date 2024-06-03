@@ -13,7 +13,7 @@ function PropertyPage() {
 
   
   const fetchData = async () => {
-    const response = await fetch("./utah.json")
+    const response = await fetch("./utah.json", {headers: {range: 'bytes=0-1000'}})
 
     if (!response.ok) {
       throw new Error("Could fetch data.")
