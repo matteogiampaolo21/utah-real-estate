@@ -6,6 +6,7 @@ import { faB, faBath, faBed } from '@fortawesome/free-solid-svg-icons';
 
 import TextCard from './TextCard'
 import BackBtn from '../../components/BackBtn'
+import FilterBtn from "../../components/FilterBtn"
 
 
 
@@ -31,15 +32,41 @@ async function PropertyPage() {
         return type.charAt(0).toUpperCase() + type.slice(1);
     }
 
-    
 
+    function filterData(type="single_family",min_sqft=400,beds=2,baths=0,max_price=400_000,status="any"){
+        let filteredData = data;
+
+        filteredData = filteredData.filter((d) => {
+            if(d.sqft >= min_sqft && d.beds >= beds && d.baths >= baths && d.listPrice <= max_price ){
+                return true;
+            }else{
+                return false
+            }
+        });
+
+        if (type !== "any"){
+            filteredData = filteredData.filter((d) => d.type === type);
+        }
+
+        if(status !== "any"){
+            filterData = filteredData.filter((d) => d.status === status);
+        }
+
+        console.log(filteredData)
+
+
+    }
+
+    
   return (
     <div className="m-5 p-5 ">
         <header className='flex justify-between'>
             <h2 className='text-xl font-bold'>Property Page</h2>
             <BackBtn className='font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900' >Previous Page</BackBtn>
+            
         </header>
-
+        
+        <FilterBtn data={data} >Click</FilterBtn>
         
         <main>
             <h2 className='text-xl mb-5'>Utah Property List</h2>

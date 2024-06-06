@@ -72,19 +72,39 @@ const checkMinSqft = (filter,data) => {
 }
 
 
-function filterData(type="single_family",min_sqft=3600,beds=0,baths=0,max_price=100_000_000,status="any"){
+
+
+function filterData(type="single_family",min_sqft=400,beds=2,baths=0,max_price=400_000,status="any"){
   let filteredData = testData;
-  filteredData = checkType(type, filteredData);
-  filteredData = checkMinSqft(min_sqft,filteredData);
+
+  filteredData = filteredData.filter((d) => {
+      if(d.sqft >= min_sqft && d.beds >= beds && d.baths >= baths && d.listPrice <= max_price ){
+        return true;
+      }else{
+        return false
+      }
+  });
+
+  if (type !== "any"){
+    filteredData = filteredData.filter((d) => d.type === type);
+  }
+
+  if(status !== "any"){
+    filterData = filteredData.filter((d) => d.status === status);
+  }
+
   console.log(filteredData)
+  // filteredData = checkType(type, filteredData);
+  // filteredData = checkMinSqft(min_sqft,filteredData);
+  // console.log(filteredData)
 
 }
 
 function Test() {
   return (
     <div>
-      Testing Page
-      <button onClick={() => filterData()}>Click</button>
+      <h2 className='text-xl font-bold'>Testing Page</h2>
+      <button className='border-black border px-2 py-1 hover:bg-emerald-500 hover:text-white' onClick={() => filterData()}>Click</button>
     </div>
   )
 }
