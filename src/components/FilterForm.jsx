@@ -1,8 +1,7 @@
 
 'use client'
 
-import React, { use } from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBath, faBed } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +10,7 @@ import TextCard from './TextCard'
 
 function FilterForm({utahData, children}) {
     const [data, setData] = useState(utahData);
+    const [listLimiter, setLimit] = useState(0);
 
 
     const [homeType, setType] = useState("any");
@@ -34,28 +34,28 @@ function FilterForm({utahData, children}) {
 
 
     
-    function filterData(e,type,min_sqft,beds,baths,max_price,status){
+    function filterData(e){
         e.preventDefault()
         let filteredData = utahData;
 
         filteredData = filteredData.filter((d) => {
-            if(d.sqft >= min_sqft && d.beds >= beds && d.baths >= baths ){
+            if(d.sqft >= minSqft && d.beds >= homeBeds && d.baths >= homeBaths ){
                 return true;
             }else{
                 return false
             }
         });
 
-        if (max_price !== 0){
-            filteredData = filteredData.filter((d) => d.listPrice <= max_price);
+        if (maxPrice !== 0){
+            filteredData = filteredData.filter((d) => d.listPrice <= maxPrice);
         }
 
-        if (type !== "any"){
-            filteredData = filteredData.filter((d) => d.type.includes(type));
+        if (homeType !== "any"){
+            filteredData = filteredData.filter((d) => d.type.includes(homeType));
         }
 
-        if(status !== "any"){
-            filteredData = filteredData.filter((d) => d.status === status);
+        if(homeStatus !== "any"){
+            filteredData = filteredData.filter((d) => d.status === homeStatus);
         }
 
         console.log(filteredData)
@@ -119,7 +119,7 @@ function FilterForm({utahData, children}) {
 
                 <div>
                     <div className='h-6 mb-2'></div>
-                    <button onClick={(e) => filterData(e,homeType,minSqft,homeBeds,homeBaths,maxPrice,homeStatus)} className='border-black w-full  border px-2 py-1 hover:bg-emerald-500 hover:text-white'>
+                    <button onClick={(e) => filterData(e)} className='border-black w-full  border px-2 py-1 hover:bg-emerald-500 hover:text-white'>
                         {children}
                     </button>
                 </div>
@@ -128,8 +128,14 @@ function FilterForm({utahData, children}) {
 
             <main>
                 <h2 className='text-xl mb-5'>Utah Property List</h2>
+
+                <div className='flex flex-row gap-5 justify-start mb-5'>
+                    <button className='border-neutral-800 rounded border-2 px-2 py-1 bg-neutral-700 text-white hover:bg-neutral-600 disabled:bg-neutral-400 disabled:text-neutral-500 disabled:border-neutral-500' disabled={listLimiter === 0 ? true : false} onClick={() => { listLimiter-36  <= 0 ? setLimit(0) : setLimit(listLimiter-36)}}>Previous Page</button>
+                    <button className='border-neutral-800 rounded border-2 px-2 py-1 bg-neutral-700 text-white hover:bg-neutral-600 disabled:bg-neutral-400 disabled:text-neutral-500 disabled:border-neutral-500' disabled={listLimiter+36 >= data.length ? true :false}  onClick={() => setLimit(listLimiter+36)}>Next Page</button>
+                </div>
+
                 <ul className='grid grid-cols-4 gap-5'>
-                    {data.map((home, index) => {
+                    {data.slice(listLimiter,listLimiter+36).map((home, index) => {
                         return(
 
                             <li className='shadow flex flex-col justify-between bg-white rounded-t rounded-b pt-5' key={index}>
@@ -162,6 +168,10 @@ function FilterForm({utahData, children}) {
                         )
                     })}
                 </ul>
+                <div className='flex flex-row gap-5 justify-end mt-10'>
+                    <button className='border-neutral-800 rounded border-2 px-2 py-1 bg-neutral-700 text-white hover:bg-neutral-600 disabled:bg-neutral-400 disabled:text-neutral-500 disabled:border-neutral-500' disabled={listLimiter === 0 ? true : false} onClick={() => { listLimiter-36  <= 0 ? setLimit(0) : setLimit(listLimiter-36)}}>Previous Page</button>
+                    <button className='border-neutral-800 rounded border-2 px-2 py-1 bg-neutral-700 text-white hover:bg-neutral-600 disabled:bg-neutral-400 disabled:text-neutral-500 disabled:border-neutral-500' disabled={listLimiter+36 >= data.length ? true :false}  onClick={() => setLimit(listLimiter+36)}>Next Page</button>
+                </div>
 
             </main>
         </>
