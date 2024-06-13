@@ -14,6 +14,25 @@ module.exports = {
       },
       spacing:{
         '34':'34px',
+      },
+      screens: {
+        'sm': '430px',
+        // => @media (min-width: 640px) { ... }
+
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+
+        'lg': '1100px',
+        // => @media (min-width: 1024px) { ... }
+
+        'xl': '1210px',
+
+
+        '2xl': '1560px',
+        // => @media (min-width: 1536px) { ... }
+      },
+      gridTemplateColumns: {
+        '15':'repeat(15, minmax(0,1fr))'
       }
     },
   },

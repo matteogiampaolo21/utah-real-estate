@@ -66,9 +66,10 @@ function FilterForm({utahData, children}) {
 
     return (
         <>
-            <form className='shadow grid grid-cols-9 gap-3 my-5 bg-white rounded-t rounded-b p-5'>
-                <label className='flex flex-col col-span-2'>
-                    <h4 className='font-bold mb-2'>Property Type</h4>
+            <form className='shadow grid grid-cols-1 md:grid-cols-5 lg:grid-cols-15 xl:grid-cols-11 gap-3 my-5 bg-white rounded-t rounded-b p-5'>
+
+                <label className='flex flex-col md:col-span-2 lg:col-span-3'>
+                    <h4 className='font-bold mb-2'>Type</h4>
                     <select defaultValue={'any'} onChange={e => setType(e.target.value)} className='border border-black px-2 py-1 '>
                         <option value="single_family">Single Family</option>
                         <option value="land">Land</option>
@@ -81,33 +82,33 @@ function FilterForm({utahData, children}) {
                     </select>
                 </label>
 
-                <label className='flex flex-col'>
-                    <h4 className='font-bold mb-2'>Minimum ft²</h4>
+                <label className='flex flex-col lg:col-span-2 xl:col-span-1'>
+                    <h4 className='font-bold mb-2'>Min. ft²</h4>
                     <input onChange={e => setMinSqft(e.target.value)} placeholder='0' className='border border-black px-2 py-1 ' type="number" />
 
                 </label>
 
-                <label className='flex flex-col'>
-                    <h4 className='font-bold mb-2'>Minimum Beds</h4>
+                <label className='flex flex-col lg:col-span-2 xl:col-span-1'>
+                    <h4 className='font-bold mb-2'>Min. Beds</h4>
                     <input onChange={e => setBeds(e.target.value)} placeholder='0' className='border border-black px-2 py-1 ' type="number" />
 
                 </label>
 
-                <label className='flex flex-col'>
-                    <h4 className='font-bold mb-2'>Minimum Baths</h4>
+                <label className='flex flex-col lg:col-span-2 xl:col-span-1'>
+                    <h4 className='font-bold mb-2'>Min: Baths</h4>
                     <input onChange={e => setBaths(e.target.value)} placeholder='0' className='border border-black px-2 py-1 ' type="number" />
 
                 </label>
 
-                <label className='flex flex-col col-span-2'>
-                    <h4 className='font-bold mb-2'>Maximum List Price</h4>
+                <label className='flex flex-col md:col-span-2'>
+                    <h4 className='font-bold mb-2'>Max. Price</h4>
                     <input onChange={e => setMaxPrice(e.target.value)} placeholder='0' className='border border-black px-2 py-1 ' type="number" />
 
                 </label>
 
 
-                <label className='flex flex-col'>
-                    <h4 className='font-bold mb-2'>Property Status</h4>
+                <label className='flex flex-col md:col-span-2'>
+                    <h4 className='font-bold mb-2'>Status</h4>
                     <select defaultValue={'any'} onChange={(e) => setStatus(e.target.value)} className='border border-black px-2 py-1 '>
                         <option value="for_sale">For Sale</option>
                         <option value="ready_to_build">Ready to Build</option>
@@ -115,9 +116,11 @@ function FilterForm({utahData, children}) {
                     </select>
                 </label>
 
+                <div className='hidden xl:col-span-1'></div>
+
                 
 
-                <div>
+                <div className='lg:col-span-2 xl:col-span-1'>
                     <div className='h-6 mb-2'></div>
                     <button onClick={(e) => filterData(e)} className='border-black w-full  border px-2 py-1 hover:bg-emerald-500 hover:text-white'>
                         {children}
@@ -134,12 +137,12 @@ function FilterForm({utahData, children}) {
                     <button className='border-neutral-800 rounded border-2 px-2 py-1 bg-neutral-700 text-white hover:bg-neutral-600 disabled:bg-neutral-400 disabled:text-neutral-500 disabled:border-neutral-500' disabled={listLimiter+36 >= data.length ? true :false}  onClick={() => setLimit(listLimiter+36)}>Next Page</button>
                 </div>
 
-                <ul className='grid grid-cols-4 gap-5'>
+                <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5'>
                     {data.slice(listLimiter,listLimiter+36).map((home, index) => {
                         return(
 
-                            <li className='shadow flex flex-col justify-between bg-white rounded-t rounded-b pt-5' key={index}>
-                                <div className='px-5'>
+                            <li className='shadow flex flex-col justify-between bg-white rounded-t rounded-b pt-3 sm:pt-5' key={index}>
+                                <div className='px-3 sm:px-5'>
                                     <div className='flex flex-row justify-between'>
                                         <h3 className='font-bold text-lg'>${formatNumber(home.listPrice)}</h3>
                                         <p>{home.sqft} ft²</p>
