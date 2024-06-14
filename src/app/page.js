@@ -1,14 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="shadow bg-white rounded-t rounded-b p-5" >
+    <div className=" p-5" >
       <h2 className="text-xl mb-3 font-bold">Homepage</h2>
-      <nav className="flex flex-row gap-3">
-        <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/property">Property</Link>
-        <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/testing">Testing</Link>
-      </nav>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum error officia impedit eum, aliquam saepe dolores quis nihil laboriosam, sunt sit quae esse numquam nam quos perferendis. Officia, magnam a!</p>
+      
     </div>
   );
 }
