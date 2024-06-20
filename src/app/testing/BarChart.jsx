@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from'react'
+import React, { useEffect,useLayoutEffect, useState } from'react'
 import * as d3 from "d3";
 
 const formatTag = (type) => {
@@ -8,16 +8,28 @@ const formatTag = (type) => {
 }
 
 function BarChart({data}) {
+
+    
+
+
     useEffect(() => {
-        const margin = { top: 30, right: 40, bottom: 60, left: 130 }
-        const width = (window.innerWidth * 0.8) - margin.left - margin.right
-        const height = 700 - margin.top - margin.bottom
+        const margin = { top: 30, right: 40, bottom: 60, left: 0 }
+        const width = 1920 - margin.left - margin.right
+        const height = 1080 - margin.top - margin.bottom
 
         const svg = d3.select("#bar-chart").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", '75%')
+        .attr("height", '60%')
+        .attr('viewBox','0 0 1920 1080')
+        .attr('preserveAspectRatio','xMinYMin meet')
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + 550 + "," + 50 +") rotate(180) scale(-0.75)");
+        // .append("g")
+        // .attr("transform", "translate(" + Math.min(width,height) / 2 + "," + Math.min(width,height) / 2 + ")");
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
+        // .append("g")
+        // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         let tempObj = {}
 
@@ -91,17 +103,26 @@ function BarChart({data}) {
 
         svg.append("g")
             .attr("class", "x axis")
-            .style("font-size", "14px")
+            .style("font-size", 33 * (600 / parseInt(d3.select("svg").style("width"))) )
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
             .call(g => g.select(".domain").remove());
 
         svg.append("g")
             .attr("class", "y axis")
-            .style("font-size", "15px")
+            .style("font-size", 33 * (600 / parseInt(d3.select("svg").style("width"))))
             .call(yAxis)
             .selectAll('path')
             .style('stroke-width', '1.75px');
+
+
+        d3.select(window).on("resize", function() {
+            const newWidth = d3.select("svg").style("width");
+            const newFontSize = 30 * (600 / parseInt(newWidth));
+            console.log(newFontSize)
+            d3.selectAll(".tick").select("text")
+                .style("font-size", newFontSize)
+        });
         
         // console.log(data)
     },[])
