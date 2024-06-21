@@ -7,30 +7,71 @@ const formatTag = (type) => {
     return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
+function responsivefy(svg) {
+    
+    // d3.select(window).on("resize", function() {
+    //     const newWidth = d3.select("svg").style("width");
+    //     const newFontSize = 30 * (600 / parseInt(newWidth));
+    //     console.log(newFontSize)
+    //     d3.selectAll(".tick").select("text")
+    //         .style("font-size", newFontSize)
+    // });
+
+
+
+
+    // get container + svg aspect ratio
+    var container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")),
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+
+    // add viewBox and preserveAspectRatio properties,
+    // and call resize so that svg resizes on inital page load
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("perserveAspectRatio", "xMinYMid")
+        .call(resize);
+
+    // to register multiple listeners for same event type, 
+    // you need to add namespace, i.e., 'click.foo'
+    // necessary if you call invoke this function for multiple svgs
+    // api docs: https://github.com/mbostock/d3/wiki/Selections#on
+    d3.select(window).on("resize." + container.attr("id"), resize);
+
+    // get width of container and resize svg to fit it
+    function resize() {
+        var targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
+
+
+
+        
+    }
+}
+
 function BarChart({data}) {
 
     
 
 
     useEffect(() => {
-        const margin = { top: 30, right: 40, bottom: 60, left: 0 }
-        const width = 1920 - margin.left - margin.right
-        const height = 1080 - margin.top - margin.bottom
+        const margin = { top: 25, right: 60, bottom: 30, left: 110 }
+        const width = 800 - margin.left - margin.right
+        const height = 300 - margin.top - margin.bottom
 
-        const svg = d3.select("#bar-chart").append("svg")
-        .attr("width", '75%')
-        .attr("height", '60%')
-        .attr('viewBox','0 0 1920 1080')
-        .attr('preserveAspectRatio','xMinYMin meet')
-        .append("g")
-        .attr("transform", "translate(" + 550 + "," + 50 +") rotate(180) scale(-0.75)");
-        // .append("g")
-        // .attr("transform", "translate(" + Math.min(width,height) / 2 + "," + Math.min(width,height) / 2 + ")");
-        // .attr("width", width + margin.left + margin.right)
-        // .attr("height", height + margin.top + margin.bottom)
-        // .append("g")
-        // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+        
+        const svg = d3.select("#bar-chart")
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .call(responsivefy)
+            .append("g")
+                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
+
+       
         let tempObj = {}
 
         data.forEach(d => {
@@ -74,16 +115,14 @@ function BarChart({data}) {
             .range([height, 0])
             .padding(0.1)
             .domain(tempArray.map(d => d.type));
-            // .domain(data.map(function (d) { return d.type; }));
 
         const xAxis = d3.axisBottom(x)
             .ticks(5)
             .tickSize(0); // remove ticks
 
-
         const yAxis = d3.axisLeft(y)
             .tickSize(0)
-            .tickPadding(10);
+            .tickPadding(5);
 
 
 
@@ -93,36 +132,40 @@ function BarChart({data}) {
             .enter().append("rect")
             .attr("class", "bar")
             .attr("y", function (d) {return y(d.type) } )
-            // .attr("y", function (d) { return y(d.type); })
             .attr("height", y.bandwidth())
             .attr("x", 0)
             .attr("width", function (d) { return x(d.amount); })
-            // .attr("width", function (d) { return x(d.type); })
-            .attr('fill', '#96a5b9')
+            .attr('fill', '#64748b')
 
 
         svg.append("g")
             .attr("class", "x axis")
-            .style("font-size", 33 * (600 / parseInt(d3.select("svg").style("width"))) )
+            .style("font-size", 15 )
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
             .call(g => g.select(".domain").remove());
 
         svg.append("g")
             .attr("class", "y axis")
-            .style("font-size", 33 * (600 / parseInt(d3.select("svg").style("width"))))
+            .style("font-size", 15)
             .call(yAxis)
             .selectAll('path')
             .style('stroke-width', '1.75px');
 
 
-        d3.select(window).on("resize", function() {
-            const newWidth = d3.select("svg").style("width");
-            const newFontSize = 30 * (600 / parseInt(newWidth));
-            console.log(newFontSize)
-            d3.selectAll(".tick").select("text")
-                .style("font-size", newFontSize)
-        });
+
+
+        svg.selectAll(".label")
+            .data(tempArray)
+            .enter().append("text")
+            .attr("x", function (d) { return x(d.amount) + 5; })
+            .attr("y", function (d) { return y(d.type) + y.bandwidth() / 2; })
+            .attr("dy", ".35em")
+            .style("font-family", "sans-serif")
+            .style("font-size", 15)
+            .style("font-weight", "bold")
+            .style('fill', '#889')
+            .text(function (d) { return d.amount; });
         
         // console.log(data)
     },[])
@@ -130,8 +173,7 @@ function BarChart({data}) {
     return (
         <div>
 
-            <div id='bar-chart'></div>
-
+            <div className='border-black border' id='bar-chart'></div>
         </div>
     )
 }
