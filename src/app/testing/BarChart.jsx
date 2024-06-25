@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect,useLayoutEffect, useState } from'react'
+import React, { useEffect} from'react'
 import * as d3 from "d3";
 
 const formatTag = (type) => {
@@ -135,19 +135,19 @@ function BarChart({data}) {
             .attr("height", y.bandwidth())
             .attr("x", 0)
             .attr("width", function (d) { return x(d.amount); })
-            .attr('fill', '#64748b')
+            .attr('fill', "#69b3a2")
 
 
         svg.append("g")
             .attr("class", "x axis")
-            .style("font-size", 15 )
+            .style("font-size", 11 )
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
             .call(g => g.select(".domain").remove());
 
         svg.append("g")
             .attr("class", "y axis")
-            .style("font-size", 15)
+            .style("font-size", 11)
             .call(yAxis)
             .selectAll('path')
             .style('stroke-width', '1.75px');
@@ -162,7 +162,7 @@ function BarChart({data}) {
             .attr("y", function (d) { return y(d.type) + y.bandwidth() / 2; })
             .attr("dy", ".35em")
             .style("font-family", "sans-serif")
-            .style("font-size", 15)
+            .style("font-size", 8)
             .style("font-weight", "bold")
             .style('fill', '#889')
             .text(function (d) { return d.amount; });
@@ -172,8 +172,8 @@ function BarChart({data}) {
     
     return (
         <div>
-
-            <div className='border-black border' id='bar-chart'></div>
+            <h2 className='text-2xl text-center font-bold'>Number of listing for each type</h2>
+            <div id='bar-chart'></div>
         </div>
     )
 }

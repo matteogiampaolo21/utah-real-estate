@@ -1,6 +1,7 @@
 
 import { readFileSync } from 'fs';
-import BarChart from './BarChart'
+import BarChart from './BarChart';
+import Scatterplot from './Scatterplot';
 // {type,min_sqft,max_sqft,beds,baths,max_price,status}
 // {single_family,1000,5000,2,1,100_000,for_sale}
 function fetchData(){
@@ -23,12 +24,9 @@ function Test() {
     <div className='m-5 border-black border p-5'>
       <h2 className='text-xl font-bold'>Testing Page</h2>
       <p className='text-lg'>D3 Graphs</p>
-      <p className='font-bold'>Showcase:</p>
-      <ul className='list-disc ml-10'>
-        <li>No. of each property type</li>
-      </ul>
 
       <BarChart data={utahData}/>
+      <Scatterplot data={utahData}/>
     </div>
   )
 }
