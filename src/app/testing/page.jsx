@@ -25,8 +25,11 @@ function Test() {
       <h2 className='text-xl font-bold'>Testing Page</h2>
       <p className='text-lg'>D3 Graphs</p>
 
-      <BarChart data={utahData}/>
-      <Scatterplot data={utahData}/>
+      <div className='grid grid-cols-1 gap-5'>
+        <BarChart data={utahData}/>
+        <Scatterplot data={utahData}/>
+
+      </div>
     </div>
   )
 }

@@ -171,8 +171,8 @@ function BarChart({data}) {
     },[])
     
     return (
-        <div>
-            <h2 className='text-2xl text-center font-bold'>Number of listing for each type</h2>
+        <div className='bg-white rounded shadow mb-10'>
+            <h2 className='text-2xl pt-10 text-center font-bold'>Number of listing for each type of property</h2>
             <div id='bar-chart'></div>
         </div>
     )
