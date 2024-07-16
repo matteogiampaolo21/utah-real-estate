@@ -21,9 +21,9 @@ function Test() {
   const utahData = fetchData();
 
   return (
-    <div className='m-5 border-black border p-5'>
-      <h2 className='text-xl font-bold'>Testing Page</h2>
-      <p className='text-lg'>D3 Graphs</p>
+    <div className='m-5 p-5'>
+      <h2 className='text-xl font-bold'>Utah Real Estate Graphs</h2>
+      <p className='text-lg mb-10'>D3 Graphs</p>
 
       <div className='grid grid-cols-1 gap-5'>
         <BarChart data={utahData}/>

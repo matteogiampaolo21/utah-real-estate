@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           <nav className="flex flex-row gap-3">
             <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/">Home</Link>
             <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/property">Property</Link>
-            <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/testing">Testing</Link>
+            <Link className="font-bol px-2 bg-neutral-700 text-white py-1 rounded hover:bg-neutral-900" href="/graphs">Graphs</Link>
           </nav>
         </div>
         {children}
